@@ -1,7 +1,7 @@
 class BookmyTicket:
     head = "\t\t\t\tBookmyTicket"
 
-    def menu(self):  # Function for displaying menu to the user
+    def menu(self):  # Function for display menu to the user
         yes = True
         while yes:  # Loop will run until yes return True
             print("Please select the any of the given choices :")
@@ -47,27 +47,32 @@ class BookmyTicket:
         for j in range(1, self.col + 1):  # Loop for printing updates matrix
             count1 = count1 + 1          #increamenting value by 1
             print(count1, end=" ")    #printing column numbers in first row
-        print()
+        print('')
         for i in self.seats:                #printing the seating arrangements
             count2 = count2 + 1
             print(count2, end=" ")      #printing column numbers in before the column  
             print(" ".join(i), sep=",")   #it joins the element of seats list after row no.
 
     def buy_a_ticket(self):  # Function for Buying a Ticket(By pressing 2)
-        a = int(input("Enter the row you wanted to book\n"))
-        b = int(input("Enter the column you wanted to book\n"))
-        if self.seats[a - 1][b - 1] == "B":  # we are checking here if it return 'B', then will show the message to the use already booked
-            print("This seat is already booked")
+        self.a = int(input("Enter the row you wanted to book\n"))
+        self.b = int(input("Enter the column you wanted to book\n"))
+        if self.seats[self.a - 1][self.b - 1] == "B":  # we are checking here if it return 'B', then will show the message to the use already booked
+            c = self.user_details[(self.a, self.b)]
+            print("This seat is already booked by", c[0])
+            print('Name:', c[0])
+            print('Gender:', c[1])
+            print('Age:', c[2])
+            print('Phone no.:', c[3])
             self.menu()
         elif self.no_of_seats < 60:  # if the no. of seats is less than 60 then it will cost 10 per seat
             self.price = 10
-            print("Ticket per person is $10, do you want to proceed ahead? Press Y/N")
-        elif a < self.row / 2:
+            print("Ticket per person is $10, do you want to proceed? Press Y/N")
+        elif self.a < self.row / 2:
             self.price = 10
-            print("Ticket per person is $10, do you want to proceed ahead? Press Y/N")
-        elif a > self.row / 2:
+            print("Ticket per person is $10, do you want to proceed? Press Y/N")
+        elif self.a > self.row / 2:
             self.price = 8
-            print("Ticket per person is $8, do you want to proceed ahead? Press Y/N")
+            print("Ticket per person is $8, do you want to proceed ? Press Y/N")
         self.user_input = input()
 
         if self.user_input == 'Y':  # If the user confirms the booking, take the user_details
@@ -76,8 +81,8 @@ class BookmyTicket:
             user_gen = input('Enter your gender in the format M/F\n')
             user_age = int(input("Enter your age\n"))
             user_contact = int(input("Please enter a phone number in the format XXX-XXX-XXXX:\n"))
-            self.row1 = a - 1
-            self.col1 = b - 1
+            self.row1 = self.a - 1
+            self.col1 = self.b - 1
             self.seats[self.row1][self.col1] = "B"  # Mark the seat as "B"
             self.seat_count = self.seat_count + 1  # Increase seat count by 1
             self.current_income = self.current_income + self.price  # Calculate current income till now
@@ -113,12 +118,12 @@ class BookmyTicket:
     def user_info(self):  # Function for printing the user details based on the row,col they booked(By pressing 4)
         self.check_x = int(input("Enter the row you booked\n"))
         self.check_y = int(input("Enter the column you booked\n"))
-        if self.seats[self.check_a - 1][self.check_b - 1] == 'B':
-            c = self.user_details[(self.check_x, self.check_y)]
-            print('Name:', c[0])
-            print('Gender:', c[1])
-            print('Age:', c[2])
-            print('Phone no.:', c[3])
+        if self.seats[self.a - 1][self.b - 1] == 'B':
+            u = self.user_details[(self.check_x, self.check_y)]
+            print('Name:', u[0])
+            print('Gender:', u[1])
+            print('Age:', u[2])
+            print('Phone no.:', u[3])
         else:
             print("Hey this seat is vacant!! wanted to book one???")  # If the seat is not booked it will displaying "seat is vacant!! wanted to book one"
             self.user_choice = (input("Press any key for main menu\n"))
